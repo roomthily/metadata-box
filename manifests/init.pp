@@ -70,8 +70,7 @@ class install_xerces {
     #export PATH="$PATH:/home/vagrant/xerces-c-3.1.1-x86_64-linux-gcc-3.4/bin"
     #export LD_LIBRARY_PATH=/home/vagrant/xerces-c-3.1.1-x86_64-linux-gcc-3.4/lib:$LD_LIBRARY_PATH
     
-    Exec['wget gz'] -> File['xerces gz'] -> Exec["extract"] -> Exec["move xerces"] -> 
-    File["/etc/profile.d/xerces.sh"] -> Exec["rm gz"]
+    Exec['wget gz'] -> File['xerces gz'] -> Exec["extract"] -> Exec["move xerces"] -> Exec["rm gz"]
 
     exec {
       "wget gz":
@@ -97,15 +96,6 @@ class install_xerces {
       command => "/usr/bin/sudo mv /home/vagrant/xerces-c-3.1.1-x86_64-linux-gcc-3.4 /usr/bin/xerces",
       creates => "/usr/bin/xerces"
     }
-
-    =begin
-file {
-      "/etc/profile.d/xerces.sh":
-        ensure => present,
-        mode => 0755,
-        content => inline_template("PATH=/usr/bin/xerces/bin:$PATH; LD_LIBRARY_PATH=/usr/bin/xerces/lib:$LD_LIBRARY_PATH")
-    }=end
-
 
     exec {
       "rm gz":

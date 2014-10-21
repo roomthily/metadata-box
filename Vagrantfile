@@ -23,4 +23,17 @@ Vagrant.configure("2") do |config|
 		puppet.options = "--verbose --debug"
 	end
 
+	#sudo apt-get install libxerces-c-samples
+	#end run around puppet's handling of env vars (not so hot)
+	#export PATH="$PATH:/home/vagrant/xerces-c-3.1.1-x86_64-linux-gcc-3.4/bin"
+    #export LD_LIBRARY_PATH=/home/vagrant/xerces-c-3.1.1-x86_64-linux-gcc-3.4/lib:$LD_LIBRARY_PATH
+    #/usr/bin/xerces
+
+    config.vm.provision "shell", inline: "export PATH=$PATH:/usr/bin/xerces/bin" 
+    config.vm.provision "shell", inline: "export LD_LIBRARY_PATH=/usr/bin/xerces/lib:$LD_LIBRARY_PATH"
+
+    config.vm.provision "shell", inline: "ls /usr/bin/xerces"
+
+    config.vm.provision "shell", inline: "echo $PATH"
+
 end
