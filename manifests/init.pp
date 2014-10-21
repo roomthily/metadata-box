@@ -49,6 +49,17 @@ class pythonxml {
 	}
 }
 
+class xmlcli {
+  #command-line exes for xml processing
+  package { 
+      [ "libsaxonb-java", "default-jre" ]:
+        ensure => ["installed"],
+        require => Exec['apt-update']   
+    }
+
+}
+
 include core
 include python
 include pythonxml
+include xmlcli

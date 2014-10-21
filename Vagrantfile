@@ -11,13 +11,10 @@ Vagrant.configure("2") do |config|
 	  vb.customize ["modifyvm", :id, "--memory", "1024"]
 	end
 
-
 	config.vm.provision "shell", inline: "ls /vagrant/scripts"
 
 	#this is working now
 	config.vm.provision "shell", path: "scripts/bootstrap.sh"
-
-	#config.vm.provision "shell", inline: "puppet modules puppetlabs"
 
 	config.vm.provision :puppet do |puppet|
 		puppet.manifests_path = "manifests"
